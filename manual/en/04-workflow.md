@@ -18,10 +18,12 @@ Daily workflow and usage scenarios.
 
 ## How the agent works automatically
 
-The OpenCode Chat plugin has a configuration parameter **`rules-path`** that points to `system/opencode-rules.md` (or the entire `system/` folder). The rules are **automatically loaded at the start of every session** – you don't need to send anything manually.
+The OpenCode Chat plugin has a configuration parameter **`rules-path`** that points to the `system/` folder. **All files** in this folder are automatically loaded at the start of every session – you don't need to send anything manually.
+
+Along with the rules, the plugin also loads **`system/opencode-chat-settings.md`** – a file the plugin automatically generates and updates whenever settings change. It contains current values such as the projects folder.
 
 From the very first message the agent knows:
-- where to store notes
+- where to store notes (reads current values from `opencode-chat-settings.md`)
 - which tags to use
 - which templates exist
 - how to format frontmatter
@@ -43,7 +45,7 @@ Tech stack: Node.js, PostgreSQL
 
 **Agent will:**
 1. Load `templates/project.md`
-2. Create `projects/my-api/overview.md`
+2. Create the file in the configured projects folder (e.g. `projects/my-api/overview.md`)
 3. Fill frontmatter, tags (`type/project`, `status/active`, `project/my-api`)
 4. Fill template sections with your information
 
@@ -59,7 +61,7 @@ Reason: ACID compliance needed, structured data, team expertise.
 
 **Agent will:**
 1. Load `templates/decision.md`
-2. Create `projects/my-api/decision-postgresql.md`
+2. Create the file in the configured projects folder (e.g. `projects/my-api/decision-postgresql.md`)
 3. Fill in context, reasons, consequences
 
 ---
@@ -74,7 +76,7 @@ Priority: high
 
 **Agent will:**
 1. Load `templates/task.md`
-2. Create `projects/my-api/task-implement-auth-endpoint.md`
+2. Create the file in the configured projects folder (e.g. `projects/my-api/task-implement-auth-endpoint.md`)
 3. Set `type/task`, `status/active`, `priority/high`, `project/my-api`
 
 ---
@@ -91,6 +93,8 @@ Key ideas: Redis for sessions, CDN for static assets, database query caching.
 1. Load `templates/note.md`
 2. Create `notes/caching-strategies.md`
 3. Capture ideas in a structured way
+
+> **Note:** Free-form notes can be saved to the root or a `notes/` folder – they are not tied to the projects folder.
 
 ---
 

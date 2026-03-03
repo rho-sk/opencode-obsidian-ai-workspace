@@ -81,7 +81,7 @@ tag:#type/task tag:#status/active tag:#priority/high
 ### Starting a new project?
 
 1. Ask OpenCode: *"Create project: project name"*
-2. The agent creates the structure in `projects/project-name/`
+2. The agent creates the structure in the configured projects folder (default: `projects/project-name/`)
 3. All project notes will have the tag `#project/project-name`
 
 ### Need to capture a thought?
@@ -162,7 +162,7 @@ A: Pick the primary type. Task = has an action to complete. Note = free-form rec
 ## Note lifecycle example
 
 1. **Creation:** *"OpenCode, add a task: deploy CORS configuration"*
-   - Agent creates `projects/opencode/deploy-cors-configuration.md`
+   - Agent creates the task in the configured projects folder (e.g. `projects/opencode/deploy-cors-configuration.md`)
    - Tags: `#type/task #status/active #project/opencode #priority/high`
 
 2. **Work:** Add notes, links to related files

@@ -18,10 +18,12 @@ Denný workflow a scenáre použitia.
 
 ## Ako funguje agent automaticky
 
-OpenCode Chat plugin má konfiguračný parameter **`rules-path`**, ktorý ukazuje na `system/opencode-rules.md` (alebo celý priečinok `system/`). Pravidlá sa **automaticky načítajú na začiatku každej session** – nemusíš nič posielať manuálne.
+OpenCode Chat plugin má konfiguračný parameter **`rules-path`**, ktorý ukazuje na priečinok `system/`. **Všetky súbory** v tomto priečinku sa načítajú automaticky na začiatku každej session – nemusíš nič posielať manuálne.
+
+Spolu s pravidlami sa načíta aj **`system/opencode-chat-settings.md`** – súbor, ktorý plugin automaticky generuje a aktualizuje pri každej zmene nastavení. Obsahuje aktuálne hodnoty ako napríklad priečinok pre projekty.
 
 Agent teda od prvej správy vie:
-- kde ukladať poznámky
+- kde ukladať poznámky (hodnoty číta z `opencode-chat-settings.md`)
 - aké tagy používať
 - aké šablóny existujú
 - ako formátovať frontmatter
@@ -43,7 +45,7 @@ Tech stack: Node.js, PostgreSQL
 
 **Agent:**
 1. Načíta `templates/project.md`
-2. Vytvorí `projects/my-api/prehľad.md`
+2. Vytvorí súbor v nakonfigurovanom projects priečinku (napr. `projects/my-api/prehľad.md`)
 3. Vyplní frontmatter, tagy (`type/project`, `status/active`, `project/my-api`)
 4. Vyplní sekcie zo šablóny tvojimi informáciami
 
@@ -59,7 +61,7 @@ Reason: ACID compliance needed, structured data, team expertise.
 
 **Agent:**
 1. Načíta `templates/decision.md`
-2. Vytvorí `projects/my-api/decision-postgresql.md`
+2. Vytvorí súbor v nakonfigurovanom projects priečinku (napr. `projects/my-api/decision-postgresql.md`)
 3. Vyplní kontextom, dôvodmi, dôsledkami
 
 ---
@@ -74,7 +76,7 @@ Priority: high
 
 **Agent:**
 1. Načíta `templates/task.md`
-2. Vytvorí `projects/my-api/task-implement-auth-endpoint.md`
+2. Vytvorí súbor v nakonfigurovanom projects priečinku (napr. `projects/my-api/task-implement-auth-endpoint.md`)
 3. Nastaví `type/task`, `status/active`, `priority/high`, `project/my-api`
 
 ---
@@ -91,6 +93,8 @@ Key ideas: Redis for sessions, CDN for static assets, database query caching.
 1. Načíta `templates/note.md`
 2. Vytvorí `notes/caching-strategies.md`
 3. Zachytí myšlienky štruktúrovane
+
+> **Poznámka:** Voľné poznámky môžeš uložiť priamo do rootu alebo do priečinka `notes/` – nie sú viazané na projects priečinok.
 
 ---
 

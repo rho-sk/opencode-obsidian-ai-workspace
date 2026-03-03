@@ -21,7 +21,7 @@ Tento dokument popisuje organizačný systém vaultu a ako ho nainštalovať.
 **Jednoduchosť na prvom mieste:**
 - Minimálna priečinková štruktúra
 - Sémantická organizácia cez **tagy** (nie cez priečinky)
-- AI agent "vie" ako pracovať vďaka `system/opencode-rules.md` – pravidlá sa načítajú automaticky pri každej session
+- AI agent "vie" ako pracovať vďaka súborom v priečinku `system/` – všetky sa načítajú automaticky pri každej session
 - Každý typ poznámky má **šablónu** → konzistentnosť bez námahy
 
 **Jazyk system/ a templates/:** Súbory sú v angličtine – agent Claude reaguje v jazyku, v ktorom s ním komunikuješ (SK prompt → SK odpoveď). Sekcie šablón (Overview, Goals...) sú EN, obsah poznámok píšeš v akomkoľvek jazyku.
@@ -33,9 +33,10 @@ Tento dokument popisuje organizačný systém vaultu a ako ho nainštalovať.
 ```
 vault/
 ├── system/                ← pravidlá a návody pre agenta + teba
-│   ├── opencode-rules.md  ← hlavné pravidlá pre OpenCode agenta
-│   ├── quick-guide.md     ← rýchly návod pre teba
-│   └── tag-index.md       ← všetky tagy a ich popis
+│   ├── opencode-rules.md         ← hlavné pravidlá pre OpenCode agenta
+│   ├── opencode-chat-settings.md ← aktuálne nastavenia pluginu (auto-generované)
+│   ├── quick-guide.md            ← rýchly návod pre teba
+│   └── tag-index.md              ← všetky tagy a ich popis
 ├── templates/             ← šablóny pre každý typ poznámky
 │   ├── project.md
 │   ├── task.md
@@ -43,10 +44,10 @@ vault/
 │   ├── reference.md
 │   ├── decision.md
 │   └── conversation.md
-├── projects/              ← aktívne projekty (jeden priečinok = jeden projekt)
+├── [projects-folder]/     ← aktívne projekty – priečinok konfigurovateľný v opencode-chat (default: projects/)
 │   └── [projekt-meno]/
 ├── archive/               ← archivované poznámky a projekty
-└── conversations/         ← záznamy AI konverzácií
+└── [export-folder]/       ← záznamy AI konverzácií (default: conversations/)
 ```
 
 ---
@@ -141,9 +142,21 @@ rm -rf /tmp/workspace-repo
 
 ## Kľúčové súbory – prehľad
 
+### `system/opencode-chat-settings.md`
+
+**Auto-generovaný súbor** – plugin OpenCode Chat ho automaticky zapíše (a aktualizuje) pri každej zmene nastavení. Obsahuje aktuálne hodnoty konfigurácie:
+
+```markdown
+- **Projects folder:** `projects`
+- **Export folder:** `conversations`
+- **Rules path:** `system`
+```
+
+Agent tieto hodnoty číta na začiatku každej session a podľa nich vie kam ukladať poznámky. **Neupravuj tento súbor ručne** – zmeny urob cez **Settings → OpenCode Chat** v Obsidiane.
+
 ### `system/opencode-rules.md`
 
-**Najdôležitejší súbor.** Definuje pravidlá pre AI agenta:
+**Hlavný súbor s pravidlami.** Definuje pravidlá pre AI agenta:
 - Priečinková štruktúra a kde ukladať poznámky
 - Tag hierarchia (povinné tagy, odporúčané)
 - Frontmatter štandard
@@ -151,7 +164,9 @@ rm -rf /tmp/workspace-repo
 - Pomenovanie súborov (malé písmená, pomlčky)
 - Workflow: vytvorenie, aktualizácia, archivácia
 
-Súbor je v angličtine – agent Claude ho pochopí a odpovedá v tvojom jazyku. Pravidlá sa načítajú automaticky pri každej session cez `rules-path` konfiguráciu pluginu.
+Súbory v `system/` sú v angličtine – agent Claude ich pochopí a odpovedá v tvojom jazyku. Všetky súbory v priečinku `system/` sa načítajú automaticky pri každej session – nie je teda potrebné ich manuálne posielať.
+
+> **Priečinok projektov** nie je napevno zadaný v pravidlách – agent si aktuálnu hodnotu vždy prečíta z `system/opencode-chat-settings.md`, kde plugin udržiava aktuálne nastavenia.
 
 ### `system/quick-guide.md`
 
@@ -175,7 +190,7 @@ Po inštalácii over v OpenCode Chat:
 Zhrň pravidlá pre organizáciu poznámok v tomto vaulte
 ```
 
-AI by mala zhrnúť pravidlá zo `system/opencode-rules.md` – načítavajú sa automaticky.
+AI by mala zhrnúť pravidlá – všetky súbory v `system/` sa načítajú automaticky.
 
 Potom otestuj vytvorenie poznámky:
 
@@ -186,7 +201,7 @@ Vytvor projektovú poznámku pre projekt "test-workspace"
 AI by mala:
 1. Načítať `templates/project.md`
 2. Vyplniť placeholdery
-3. Vytvoriť `projects/test-workspace/prehľad.md`
+3. Vytvoriť súbor v nakonfigurovanom projects priečinku (napr. `projects/test-workspace/prehľad.md`)
 4. Pridať správne tagy a frontmatter
 
 **✅ Checkpoint:** Vault štruktúra funguje, agent používa pravidlá a šablóny
