@@ -18,9 +18,9 @@ Daily workflow and usage scenarios.
 
 ## How the agent works automatically
 
-The OpenCode Chat plugin has a configuration parameter **`rules-path`** that points to the `system/` folder. **All files** in this folder are automatically loaded at the start of every session – you don't need to send anything manually.
+The OpenCode Chat plugin has a configuration parameter **`rules-path`** that points to the `x-ai-rules/` folder. **All files** in this folder are automatically loaded at the start of every session – you don't need to send anything manually.
 
-Along with the rules, the plugin also loads **`system/opencode-chat-settings.md`** – a file the plugin automatically generates and updates whenever settings change. It contains current values such as the projects folder.
+Along with the rules, the plugin also loads **`x-ai-rules/opencode-chat-settings.md`** – a file the plugin automatically generates and updates whenever settings change. It contains current values such as the projects folder.
 
 From the very first message the agent knows:
 - where to store notes (reads current values from `opencode-chat-settings.md`)
@@ -44,7 +44,7 @@ Tech stack: Node.js, PostgreSQL
 ```
 
 **Agent will:**
-1. Load `templates/project.md`
+1. Load `x-ai-templates/project.md`
 2. Create the file in the configured projects folder (e.g. `projects/my-api/overview.md`)
 3. Fill frontmatter, tags (`type/project`, `status/active`, `project/my-api`)
 4. Fill template sections with your information
@@ -60,7 +60,7 @@ Reason: ACID compliance needed, structured data, team expertise.
 ```
 
 **Agent will:**
-1. Load `templates/decision.md`
+1. Load `x-ai-templates/decision.md`
 2. Create the file in the configured projects folder (e.g. `projects/my-api/decision-postgresql.md`)
 3. Fill in context, reasons, consequences
 
@@ -75,7 +75,7 @@ Priority: high
 ```
 
 **Agent will:**
-1. Load `templates/task.md`
+1. Load `x-ai-templates/task.md`
 2. Create the file in the configured projects folder (e.g. `projects/my-api/task-implement-auth-endpoint.md`)
 3. Set `type/task`, `status/active`, `priority/high`, `project/my-api`
 
@@ -90,7 +90,7 @@ Key ideas: Redis for sessions, CDN for static assets, database query caching.
 ```
 
 **Agent will:**
-1. Load `templates/note.md`
+1. Load `x-ai-templates/note.md`
 2. Create `notes/caching-strategies.md`
 3. Capture ideas in a structured way
 
@@ -140,7 +140,7 @@ Topic: Architecture decisions for my-api
 ```
 
 **Agent will:**
-1. Load `templates/conversation.md`
+1. Load `x-ai-templates/conversation.md`
 2. Create `conversations/[date]-architecture-my-api.md`
 3. Summarize key points from the conversation
 
@@ -176,7 +176,7 @@ Archive the my-api project. Move it to archive/ and update status to archived.
 Templates are not final – customize them:
 
 ```
-Add a "Risk" section to templates/project.md
+Add a "Risk" section to x-ai-templates/project.md
 ```
 
 The change applies to all future project notes.

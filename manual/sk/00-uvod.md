@@ -69,11 +69,11 @@ AI: *Prečíta poznámky z projects/projekt-x/*
 
 ```
 vault/
-├── system/                ← pravidlá pre AI agenta
+├── x-ai-rules/            ← pravidlá pre AI agenta
 │   ├── opencode-rules.md  ← ako organizovať poznámky
 │   ├── quick-guide.md     ← rýchly návod pre teba
 │   └── tag-index.md       ← kompletný zoznam tagov
-├── templates/             ← šablóny pre každý typ poznámky
+├── x-ai-templates/        ← šablóny pre každý typ poznámky
 │   ├── project.md
 │   ├── task.md
 │   ├── note.md
@@ -95,7 +95,7 @@ Každá poznámka má:
 
 ### 4. AI agent "vie" ako pracovať s vaultom
 
-Vďaka `system/opencode-rules.md` agent automaticky:
+Vďaka `x-ai-rules/opencode-rules.md` agent automaticky:
 - Používa správne šablóny
 - Pridáva konzistentné tagy
 - Ukladá do správnych priečinkov
@@ -133,7 +133,7 @@ Vďaka `system/opencode-rules.md` agent automaticky:
                ▼
 ┌──────────────────────────────┐
 │  Obsidian Vault              │  ← Poznámky zostávajú lokálne
-│  system/ + templates/        │  ← Vault guidelines
+│  x-ai-rules/ + x-ai-templates/ │  ← Vault guidelines
 └──────────────────────────────┘
 ```
 
@@ -158,20 +158,15 @@ Vďaka `system/opencode-rules.md` agent automaticky:
 
 ## Jazyková stratégia
 
-### Prečo sú `system/` a `templates/` v angličtine?
+### Prečo sú `x-ai-rules/` a `x-ai-templates/` v angličtine?
 
-Súbory `system/opencode-rules.md`, `system/quick-guide.md`, `system/tag-index.md` a všetky `templates/` sú v **angličtine**. Dôvod je praktický:
+Súbory `x-ai-rules/opencode-rules.md`, `x-ai-rules/quick-guide.md`, `x-ai-rules/tag-index.md` a všetky `x-ai-templates/` sú v **angličtine**. Dôvod je praktický:
 
 - Agent Claude pracuje s angličtinou najspoľahlivejšie
 - EN pravidlá fungujú pre každého používateľa bez ohľadu na jeho jazyk
 - **Ty komunikuješ s agentom v akomkoľvek jazyku** – agent odpovedá rovnakým jazykom (SK prompt → SK odpoveď)
 - Sekcie šablón (Overview, Goals, Description...) sú EN, ale obsah poznámok píšeš v SK alebo EN alebo akomkoľvek jazyku
 
-### Kde sú zdrojové súbory?
-
-- Zdrojové `system/` a `templates/` súbory sa nachádzajú v **`projects/opencode-obsidian-ai-workspace/system/`** a **`projects/opencode-obsidian-ai-workspace/templates/`**
-- Verzia v roote vaultu (`vault/system/`, `vault/templates/`) = nainštalovaná verzia z release ZIP
-- Edituj len v zdrojových súboroch projektu; do vault rootu sa nasadia pri release
 
 ---
 

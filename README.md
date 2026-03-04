@@ -1,102 +1,172 @@
+---
+created: '2026-03-01'
+tags:
+  - type/reference
+  - project/opencode-obsidian-ai-workspace
+  - topic/ai
+  - topic/obsidian
+updated: '2026-03-01'
+---
 # OpenCode Obsidian AI Workspace
 
-> Privacy-first AI workspace for Obsidian: OpenCode + Amazon Bedrock + structured vault guidelines.
+> AI-asistovaný Obsidian vault s **Amazon Bedrock**, vault guidelines a hotovými šablónami – pripravený na distribúciu.
 
 ---
 
-## What is this?
+## Čo je tento projekt?
 
-OpenCode Obsidian AI Workspace is a complete personal setup for AI-assisted work in an Obsidian vault. It combines:
+OpenCode Obsidian AI Workspace je kompletný osobný setup pre AI-asistovanú prácu v Obsidian vaulte. Obsahuje:
 
-1. **Amazon Bedrock** as the LLM provider – GDPR compliant, EU region, no logging
-2. **Vault guidelines** – rules, templates, and tag structure for consistent note organization
-3. **Manuals** (SK + EN) – step-by-step guides to deploy and use the full setup
+1. **Konfigurácia Amazon Bedrock** – privacy-first LLM provider (GDPR, EU región, žiadne logovanie)
+2. **Vault guidelines** – system rules, templates a tag štruktúra pre konzistentnú organizáciu poznámok
+3. **Manuály** (SK + EN) – krok za krokom návod pre nových používateľov
 
-The AI agent automatically knows how to work with your vault thanks to `system/opencode-rules.md`, loaded at every session start via the OpenCode Chat plugin's `rules-path` configuration.
+### Vzťah k opencode-chat
 
-### Requires
-
-- [OpenCode](https://opencode.ai) – AI agent engine (local server)
-- [OpenCode Chat plugin](https://github.com/rho-sk/opencode-chat) – Obsidian plugin providing the chat UI
-- Amazon Bedrock account (or API key from your administrator)
-
----
-
-## Installation
-
-Download the latest release ZIP from [Releases](https://github.com/rho-sk/opencode-obsidian-ai-workspace/releases) and extract it to your vault root:
-
-```bash
-unzip opencode-obsidian-ai-workspace.vX.Y.Z.zip -d /PATH/TO/YOUR/VAULT/
-```
-
-The ZIP installs:
-- `system/` → vault root (agent rules, quick guide, tag index)
-- `templates/` → vault root (note templates for every type)
-- `opencode-obsidian-ai-workspace.vX.Y.Z/` → manuals (SK + EN)
-
----
-
-## Vault structure after installation
+Tento projekt **stavia na** [[../opencode-chat/README|opencode-chat]] plugine:
 
 ```
-vault/
-├── system/
-│   ├── opencode-rules.md   ← agent rules (loaded automatically)
-│   ├── quick-guide.md      ← quick reference for you
-│   └── tag-index.md        ← all tags with descriptions
-├── templates/
+opencode-chat plugin          → univerzálny AI chat v Obsidiane (provider-agnostický)
+         +
+opencode-obsidian-ai-workspace → môj konkrétny setup: Bedrock + vault guidelines
+```
+
+Inštaláciu opencode-chat pluginu **musíš dokončiť skôr** – pozri [[../opencode-chat/manual/sk/01-instalacia|01-instalacia]].
+
+---
+
+## Štruktúra projektu
+
+```
+projects/opencode-obsidian-ai-workspace/
+├── README.md                           # Tento súbor
+├── prehľad.md                          # Projektová poznámka (status, ciele)
+├── architektura.md                     # Vzťah komponentov
+├── github-repo-instrukcie.md           # GitHub repo, build, releases
+├── x-ai-rules/                         # ZDROJOVÉ vault guidelines (EN)
+│   ├── opencode-rules.md               # Pravidlá pre OpenCode agenta
+│   ├── quick-guide.md                  # Rýchly návod pre používateľa
+│   └── tag-index.md                    # Kompletný zoznam tagov
+├── x-ai-templates/                     # ZDROJOVÉ šablóny (EN sekcie)
 │   ├── project.md
 │   ├── task.md
 │   ├── note.md
 │   ├── reference.md
 │   ├── decision.md
 │   └── conversation.md
-├── projects/
-├── archive/
-└── conversations/
+└── manual/
+    ├── sk/
+    │   ├── 00-uvod.md
+    │   ├── 01-predpoklady.md
+    │   ├── 02-bedrock-nastavenie.md
+    │   ├── 03-vault-struktura.md
+    │   └── 04-workflow.md
+    └── en/
+        ├── 00-introduction.md
+        ├── 01-prerequisites.md
+        ├── 02-bedrock-setup.md
+        ├── 03-vault-structure.md
+        └── 04-workflow.md
 ```
 
----
-
-## Manuals
-
-| Language | Files |
-|---|---|
-| Slovak | `opencode-obsidian-ai-workspace.vX.Y.Z/manual/sk/` |
-| English | `opencode-obsidian-ai-workspace.vX.Y.Z/manual/en/` |
-
-Manual chapters:
-- `00` – Introduction / Úvod
-- `01` – Prerequisites / Predpoklady
-- `02` – Amazon Bedrock setup / Nastavenie Bedrock
-- `03` – Vault structure / Vault štruktúra
-- `04` – Daily workflow / Denný workflow
+> **`x-ai-rules/` a `x-ai-templates/` v roote vaultu** (`vault/x-ai-rules/`, `vault/x-ai-templates/`) sú **nainštalovaná verzia** z release ZIP – needitovať priamo. Zdrojové súbory sú tu v projekte.
 
 ---
 
-## Privacy
+## Pre nových používateľov (SK)
 
-- **EU region** (`eu-central-1`) – GDPR compliant, data stays in the EU
-- **No logging** – Bedrock does not store prompts or responses
-- **Stateless API** – no data persistence on the AWS side
-- **Vault files stay local** – read directly from your filesystem via MCP
+1. **[[manual/sk/00-uvod]]** – Čo je workspace a prečo Bedrock (5 min)
+2. **[[manual/sk/01-predpoklady]]** – Čo musí bežať pred týmto (10 min)
+3. **[[manual/sk/02-bedrock-nastavenie]]** – Bedrock setup (15-20 min)
+4. **[[manual/sk/03-vault-struktura]]** – Nainštaluj vault guidelines (10 min)
+5. **[[manual/sk/04-workflow]]** – Nauč sa používať (20 min čítanie)
 
-More: https://aws.amazon.com/bedrock/data-protection/
+## For new users (EN)
 
----
-
-## Cost (Amazon Bedrock Claude models)
-
-| Model | Input | Output |
-|---|---|---|
-| Claude Sonnet 4.6 | $3 / 1M tokens | $15 / 1M tokens |
-| Claude Haiku 4.6  | $1 / 1M tokens | $5 / 1M tokens  |
-
-Typical usage: ~$5–10/month.
+1. **[[manual/en/00-introduction]]** – What is this workspace and why Bedrock (5 min)
+2. **[[manual/en/01-prerequisites]]** – What needs to be running first (10 min)
+3. **[[manual/en/02-bedrock-setup]]** – Bedrock configuration (15-20 min)
+4. **[[manual/en/03-vault-structure]]** – Install vault guidelines (10 min)
+5. **[[manual/en/04-workflow]]** – Learn to use it (20 min reading)
 
 ---
 
-## License
+## Inštalácia z GitHub Release
 
-MIT
+Pre nových používateľov je k dispozícii **release ZIP** na GitHub:
+
+```
+https://github.com/[username]/opencode-obsidian-ai-workspace/releases
+```
+
+### Čo obsahuje ZIP
+
+```
+opencode-obsidian-ai-workspace.vX.Y.Z.zip
+├── x-ai-rules/                 ← vault guidelines, EN (rozbalí sa do vault root)
+│   ├── opencode-rules.md       ← pravidlá pre agenta (agent komunikuje v tvojom jazyku)
+│   ├── quick-guide.md
+│   └── tag-index.md
+├── x-ai-templates/             ← šablóny, EN sekcie (rozbalí sa do vault root)
+│   ├── project.md
+│   ├── task.md
+│   ├── note.md
+│   ├── reference.md
+│   ├── decision.md
+│   └── conversation.md
+└── opencode-obsidian-ai-workspace.vX.Y.Z/   ← manuály (verzionovaný adresár)
+    ├── README.md
+    └── manual/
+        ├── sk/
+        └── en/
+```
+
+> **Jazyková poznámka:** `x-ai-rules/` a `x-ai-templates/` sú v angličtine – agent Claude reaguje v jazyku, v ktorom s ním píšeš (SK prompt → SK odpoveď). Sekcie šablón (Overview, Goals...) sú EN, ale obsah poznámok píšeš v akomkoľvek jazyku.
+
+### Inštalácia
+
+```bash
+# Rozbaľ ZIP do koreňa vaultu
+unzip opencode-obsidian-ai-workspace.vX.Y.Z.zip -d /CESTA/K/VAULTU/
+```
+
+Po rozbalení bude vault obsahovať:
+```
+vault/
+├── x-ai-rules/                                      ← vault guidelines
+├── x-ai-templates/                                  ← šablóny
+└── opencode-obsidian-ai-workspace.vX.Y.Z/       ← manuály (nekonflikuje)
+    ├── README.md
+    └── manual/
+```
+
+Verzia v názve adresára zabezpečuje, že **nedôjde ku konfliktu** s týmto projektovým adresárom (`projects/opencode-obsidian-ai-workspace/`) pri testovaní releasu.
+
+---
+
+## Data Privacy
+
+**Prečo Amazon Bedrock:**
+
+- ✅ EU región `eu-central-1` – GDPR compliant
+- ✅ Žiadne logovanie – Bedrock neukladá prompty ani odpovede
+- ✅ Stateless API – žiadna perzistencia dát na AWS strane
+- ✅ AWS Terms of Service – dáta sa nepoužívajú na tréning modelov
+- ✅ Vault súbory zostávajú lokálne vždy
+
+**Dokumentácia:** https://aws.amazon.com/bedrock/data-protection/
+
+---
+
+## Linky
+
+- **opencode-chat plugin:** [[../opencode-chat/README|opencode-chat]]
+- **Architektúra:** [[architektura]]
+- **GitHub repo instrukcie:** [[github-repo-instrukcie]]
+- **OpenCode:** https://opencode.ai
+- **MCP Obsidian:** https://github.com/mauriciowolff/mcp-obsidian
+- **Amazon Bedrock:** https://aws.amazon.com/bedrock/
+
+---
+
+**Posledná aktualizácia:** 2026-03-01

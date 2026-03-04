@@ -21,10 +21,10 @@ Tento dokument popisuje organizačný systém vaultu a ako ho nainštalovať.
 **Jednoduchosť na prvom mieste:**
 - Minimálna priečinková štruktúra
 - Sémantická organizácia cez **tagy** (nie cez priečinky)
-- AI agent "vie" ako pracovať vďaka súborom v priečinku `system/` – všetky sa načítajú automaticky pri každej session
+- AI agent "vie" ako pracovať vďaka súborom v priečinku `x-ai-rules/` – všetky sa načítajú automaticky pri každej session
 - Každý typ poznámky má **šablónu** → konzistentnosť bez námahy
 
-**Jazyk system/ a templates/:** Súbory sú v angličtine – agent Claude reaguje v jazyku, v ktorom s ním komunikuješ (SK prompt → SK odpoveď). Sekcie šablón (Overview, Goals...) sú EN, obsah poznámok píšeš v akomkoľvek jazyku.
+**Jazyk x-ai-rules/ a x-ai-templates/:** Súbory sú v angličtine – agent Claude reaguje v jazyku, v ktorom s ním komunikuješ (SK prompt → SK odpoveď). Sekcie šablón (Overview, Goals...) sú EN, obsah poznámok píšeš v akomkoľvek jazyku.
 
 ---
 
@@ -32,12 +32,12 @@ Tento dokument popisuje organizačný systém vaultu a ako ho nainštalovať.
 
 ```
 vault/
-├── system/                ← pravidlá a návody pre agenta + teba
+├── x-ai-rules/            ← pravidlá a návody pre agenta + teba
 │   ├── opencode-rules.md         ← hlavné pravidlá pre OpenCode agenta
 │   ├── opencode-chat-settings.md ← aktuálne nastavenia pluginu (auto-generované)
 │   ├── quick-guide.md            ← rýchly návod pre teba
 │   └── tag-index.md              ← všetky tagy a ich popis
-├── templates/             ← šablóny pre každý typ poznámky
+├── x-ai-templates/        ← šablóny pre každý typ poznámky
 │   ├── project.md
 │   ├── task.md
 │   ├── note.md
@@ -123,8 +123,8 @@ unzip opencode-obsidian-ai-workspace.vX.Y.Z.zip -d /CESTA/K/VAULTU/
 ```
 
 ZIP obsahuje:
-- `system/` → rozbalí sa do `vault/system/` (EN pravidlá pre agenta)
-- `templates/` → rozbalí sa do `vault/templates/` (EN sekcie, obsah v ľubovoľnom jazyku)
+- `x-ai-rules/` → rozbalí sa do `vault/x-ai-rules/` (EN pravidlá pre agenta)
+- `x-ai-templates/` → rozbalí sa do `vault/x-ai-templates/` (EN sekcie, obsah v ľubovoľnom jazyku)
 - `opencode-obsidian-ai-workspace.vX.Y.Z/` → manuály
 
 ### Možnosť B: Klonovanie z GitHub repo
@@ -132,8 +132,8 @@ ZIP obsahuje:
 ```bash
 git clone https://github.com/[username]/opencode-obsidian-ai-workspace.git /tmp/workspace-repo
 
-cp -r /tmp/workspace-repo/system/* /CESTA/K/VAULTU/system/
-cp -r /tmp/workspace-repo/templates/* /CESTA/K/VAULTU/templates/
+cp -r /tmp/workspace-repo/x-ai-rules/* /CESTA/K/VAULTU/x-ai-rules/
+cp -r /tmp/workspace-repo/x-ai-templates/* /CESTA/K/VAULTU/x-ai-templates/
 
 rm -rf /tmp/workspace-repo
 ```
@@ -142,19 +142,19 @@ rm -rf /tmp/workspace-repo
 
 ## Kľúčové súbory – prehľad
 
-### `system/opencode-chat-settings.md`
+### `x-ai-rules/opencode-chat-settings.md`
 
 **Auto-generovaný súbor** – plugin OpenCode Chat ho automaticky zapíše (a aktualizuje) pri každej zmene nastavení. Obsahuje aktuálne hodnoty konfigurácie:
 
 ```markdown
 - **Projects folder:** `projects`
 - **Export folder:** `conversations`
-- **Rules path:** `system`
+- **Rules path:** `x-ai-rules`
 ```
 
 Agent tieto hodnoty číta na začiatku každej session a podľa nich vie kam ukladať poznámky. **Neupravuj tento súbor ručne** – zmeny urob cez **Settings → OpenCode Chat** v Obsidiane.
 
-### `system/opencode-rules.md`
+### `x-ai-rules/opencode-rules.md`
 
 **Hlavný súbor s pravidlami.** Definuje pravidlá pre AI agenta:
 - Priečinková štruktúra a kde ukladať poznámky
@@ -164,19 +164,19 @@ Agent tieto hodnoty číta na začiatku každej session a podľa nich vie kam uk
 - Pomenovanie súborov (malé písmená, pomlčky)
 - Workflow: vytvorenie, aktualizácia, archivácia
 
-Súbory v `system/` sú v angličtine – agent Claude ich pochopí a odpovedá v tvojom jazyku. Všetky súbory v priečinku `system/` sa načítajú automaticky pri každej session – nie je teda potrebné ich manuálne posielať.
+Súbory v `x-ai-rules/` sú v angličtine – agent Claude ich pochopí a odpovedá v tvojom jazyku. Všetky súbory v priečinku `x-ai-rules/` sa načítajú automaticky pri každej session – nie je teda potrebné ich manuálne posielať.
 
-> **Priečinok projektov** nie je napevno zadaný v pravidlách – agent si aktuálnu hodnotu vždy prečíta z `system/opencode-chat-settings.md`, kde plugin udržiava aktuálne nastavenia.
+> **Priečinok projektov** nie je napevno zadaný v pravidlách – agent si aktuálnu hodnotu vždy prečíta z `x-ai-rules/opencode-chat-settings.md`, kde plugin udržiava aktuálne nastavenia.
 
-### `system/quick-guide.md`
+### `x-ai-rules/quick-guide.md`
 
 Stručný návod **pre teba** – ako vyhľadávať, vytvárať poznámky, workflow.
 
-### `system/tag-index.md`
+### `x-ai-rules/tag-index.md`
 
 Kompletný zoznam všetkých tagov v tvojom vaulte s vysvetlením. Pridávaj sem nové tagy ak ich vytvoríš.
 
-### `templates/`
+### `x-ai-templates/`
 
 Šablóny pre každý typ poznámky. Sekcie sú v angličtine (Overview, Goals, Description...) – obsah vypĺňaš v akomkoľvek jazyku. Agent ich automaticky používa pri vytváraní nových poznámok.
 
@@ -190,7 +190,7 @@ Po inštalácii over v OpenCode Chat:
 Zhrň pravidlá pre organizáciu poznámok v tomto vaulte
 ```
 
-AI by mala zhrnúť pravidlá – všetky súbory v `system/` sa načítajú automaticky.
+AI by mala zhrnúť pravidlá – všetky súbory v `x-ai-rules/` sa načítajú automaticky.
 
 Potom otestuj vytvorenie poznámky:
 
@@ -199,7 +199,7 @@ Vytvor projektovú poznámku pre projekt "test-workspace"
 ```
 
 AI by mala:
-1. Načítať `templates/project.md`
+1. Načítať `x-ai-templates/project.md`
 2. Vyplniť placeholdery
 3. Vytvoriť súbor v nakonfigurovanom projects priečinku (napr. `projects/test-workspace/prehľad.md`)
 4. Pridať správne tagy a frontmatter
@@ -212,7 +212,7 @@ AI by mala:
 
 ### Pridanie vlastných pravidiel
 
-Uprav `system/opencode-rules.md` – pridaj sekciu:
+Uprav `x-ai-rules/opencode-rules.md` – pridaj sekciu:
 
 ```markdown
 ## Vlastné pravidlá
@@ -234,7 +234,7 @@ Uprav `system/opencode-rules.md` – pridaj sekciu:
 Skopíruj existujúcu šablónu a uprav:
 
 ```
-AI: Skopíruj templates/note.md do templates/meeting.md a pridaj sekcie: Účastníci, Agenda, Akčné body
+AI: Skopíruj x-ai-templates/note.md do x-ai-templates/meeting.md a pridaj sekcie: Účastníci, Agenda, Akčné body
 ```
 
 ---

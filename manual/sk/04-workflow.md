@@ -18,9 +18,9 @@ Denný workflow a scenáre použitia.
 
 ## Ako funguje agent automaticky
 
-OpenCode Chat plugin má konfiguračný parameter **`rules-path`**, ktorý ukazuje na priečinok `system/`. **Všetky súbory** v tomto priečinku sa načítajú automaticky na začiatku každej session – nemusíš nič posielať manuálne.
+OpenCode Chat plugin má konfiguračný parameter **`rules-path`**, ktorý ukazuje na priečinok `x-ai-rules/`. **Všetky súbory** v tomto priečinku sa načítajú automaticky na začiatku každej session – nemusíš nič posielať manuálne.
 
-Spolu s pravidlami sa načíta aj **`system/opencode-chat-settings.md`** – súbor, ktorý plugin automaticky generuje a aktualizuje pri každej zmene nastavení. Obsahuje aktuálne hodnoty ako napríklad priečinok pre projekty.
+Spolu s pravidlami sa načíta aj **`x-ai-rules/opencode-chat-settings.md`** – súbor, ktorý plugin automaticky generuje a aktualizuje pri každej zmene nastavení. Obsahuje aktuálne hodnoty ako napríklad priečinok pre projekty.
 
 Agent teda od prvej správy vie:
 - kde ukladať poznámky (hodnoty číta z `opencode-chat-settings.md`)
@@ -44,7 +44,7 @@ Tech stack: Node.js, PostgreSQL
 ```
 
 **Agent:**
-1. Načíta `templates/project.md`
+1. Načíta `x-ai-templates/project.md`
 2. Vytvorí súbor v nakonfigurovanom projects priečinku (napr. `projects/my-api/prehľad.md`)
 3. Vyplní frontmatter, tagy (`type/project`, `status/active`, `project/my-api`)
 4. Vyplní sekcie zo šablóny tvojimi informáciami
@@ -60,7 +60,7 @@ Reason: ACID compliance needed, structured data, team expertise.
 ```
 
 **Agent:**
-1. Načíta `templates/decision.md`
+1. Načíta `x-ai-templates/decision.md`
 2. Vytvorí súbor v nakonfigurovanom projects priečinku (napr. `projects/my-api/decision-postgresql.md`)
 3. Vyplní kontextom, dôvodmi, dôsledkami
 
@@ -75,7 +75,7 @@ Priority: high
 ```
 
 **Agent:**
-1. Načíta `templates/task.md`
+1. Načíta `x-ai-templates/task.md`
 2. Vytvorí súbor v nakonfigurovanom projects priečinku (napr. `projects/my-api/task-implement-auth-endpoint.md`)
 3. Nastaví `type/task`, `status/active`, `priority/high`, `project/my-api`
 
@@ -90,7 +90,7 @@ Key ideas: Redis for sessions, CDN for static assets, database query caching.
 ```
 
 **Agent:**
-1. Načíta `templates/note.md`
+1. Načíta `x-ai-templates/note.md`
 2. Vytvorí `notes/caching-strategies.md`
 3. Zachytí myšlienky štruktúrovane
 
@@ -140,7 +140,7 @@ Topic: Architecture decisions for my-api
 ```
 
 **Agent:**
-1. Načíta `templates/conversation.md`
+1. Načíta `x-ai-templates/conversation.md`
 2. Vytvorí `conversations/[dátum]-architecture-my-api.md`
 3. Zhrnie kľúčové body konverzácie
 
@@ -176,7 +176,7 @@ Archive the my-api project. Move it to archive/ and update status to archived.
 Šablóny nie sú finálne – prispôsob ich:
 
 ```
-Add a "Risk" section to templates/project.md
+Add a "Risk" section to x-ai-templates/project.md
 ```
 
 Zmena sa prejaví pri všetkých budúcich projektových poznámkach.

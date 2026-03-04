@@ -69,11 +69,11 @@ AI:  *Reads notes from projects/project-x/*
 
 ```
 vault/
-├── system/                ← rules for the AI agent
+├── x-ai-rules/            ← rules for the AI agent
 │   ├── opencode-rules.md  ← how to organize notes
 │   ├── quick-guide.md     ← quick guide for you
 │   └── tag-index.md       ← complete tag list
-├── templates/             ← templates for every note type
+├── x-ai-templates/        ← templates for every note type
 │   ├── project.md
 │   ├── task.md
 │   ├── note.md
@@ -95,7 +95,7 @@ Every note has:
 
 ### 4. The AI agent "knows" how to work with your vault
 
-Thanks to `system/opencode-rules.md`, the agent automatically:
+Thanks to `x-ai-rules/opencode-rules.md`, the agent automatically:
 - Uses the correct templates
 - Adds consistent tags
 - Saves files to the right folders
@@ -133,7 +133,7 @@ Thanks to `system/opencode-rules.md`, the agent automatically:
                ▼
 ┌──────────────────────────────┐
 │  Obsidian Vault              │  ← Notes stay local
-│  system/ + templates/        │  ← Vault guidelines
+│  x-ai-rules/ + x-ai-templates/  │  ← Vault guidelines
 └──────────────────────────────┘
 ```
 
@@ -158,20 +158,15 @@ Thanks to `system/opencode-rules.md`, the agent automatically:
 
 ## Language strategy
 
-### Why are `system/` and `templates/` in English?
+### Why are `x-ai-rules/` and `x-ai-templates/` in English?
 
-The files `system/opencode-rules.md`, `system/quick-guide.md`, `system/tag-index.md`, and all `templates/` are in **English**. The reason is practical:
+The files `x-ai-rules/opencode-rules.md`, `x-ai-rules/quick-guide.md`, `x-ai-rules/tag-index.md`, and all `x-ai-templates/` are in **English**. The reason is practical:
 
 - Claude works most reliably with English instructions
 - English rules work for all users regardless of their language
 - **You communicate with the agent in any language** – the agent responds in the same language (write in Slovak → get Slovak responses)
 - Template sections (Overview, Goals, Description...) are in English, but you write note content in any language
 
-### Where are the source files?
-
-- Source `system/` and `templates/` files live in **`projects/opencode-obsidian-ai-workspace/system/`** and **`projects/opencode-obsidian-ai-workspace/templates/`**
-- The versions in vault root (`vault/system/`, `vault/templates/`) = installed version from the release ZIP
-- Only edit the source files inside the project; they are deployed to vault root at release time
 
 ---
 

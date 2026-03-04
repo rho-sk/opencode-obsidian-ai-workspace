@@ -26,7 +26,7 @@ Don't worry too much about where to save something. **Tags** matter more than th
 ### 1. Manually
 
 1. Create a new note
-2. Copy the content of the appropriate template from `templates/`
+2. Copy the content of the appropriate template from `x-ai-templates/`
 3. Fill in `{{placeholders}}`
 4. Save wherever makes sense (preferably inside a project)
 

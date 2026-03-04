@@ -13,9 +13,9 @@ echo "Building ${ZIP_FILE}..."
 rm -rf "${DIST_DIR}"
 mkdir -p "${DIST_DIR}/${RELEASE_NAME}/manual"
 
-# Copy system/ and templates/ to ZIP root
-cp -r system "${DIST_DIR}/"
-cp -r templates "${DIST_DIR}/"
+# Copy x-ai-rules/ and x-ai-templates/ to ZIP root
+cp -r x-ai-rules "${DIST_DIR}/"
+cp -r x-ai-templates "${DIST_DIR}/"
 
 # Copy manual/ into versioned subdirectory
 cp -r manual/sk "${DIST_DIR}/${RELEASE_NAME}/manual/"
